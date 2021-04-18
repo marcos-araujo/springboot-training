@@ -1,0 +1,31 @@
+version: '3'
+services: 
+  forum:
+    image: marcosaraujo/spring-boot-forum
+    container_name: forum
+    ports:
+      - "8080:8080"
+    networks:
+      - production-network
+    environment:
+      FORUM_DATABASE_URL: ${FORUM_DATABASE_URL}
+      FORUM_DATABASE_USERNAME: ${FORUM_DATABASE_USERNAME}
+      FORUM_DATABASE_PASSWORD: ${FORUM_DATABASE_PASSWORD}
+      FORUM_DATABASE_SECRET: ${FORUM_DATABASE_SECRET}
+      SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE}
+      PORT: ${PORT}
+      ADMIN_HOST: ${ADMIN_HOST}
+
+  admin:
+    image: marcosaraujo/spring-boot-admin
+    container_name: admin
+    ports:
+      - "8081:8081"
+    networks:
+      - production-network
+    environment:
+      PORT: ${PORT_ADMIN}
+
+networks:
+  production-network:
+    driver: bridge
